@@ -11,7 +11,7 @@ class App extends React.Component {
 
   async getMoviesFetch() {
     await fetch(
-      'https://api.themoviedb.org/3/movie/popular?api_key=6157d69c47f109097f7a9012be7c457f&language=en-US'
+      'https://api.themoviedb.org/3/search/movie?api_key=6157d69c47f109097f7a9012be7c457f&language=en-US&query=return&page=1&include_adult=false'
     ).then((result) => {
       if (result.ok) {
         result.json().then((res) => {
