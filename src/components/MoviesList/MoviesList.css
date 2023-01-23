@@ -1,0 +1,17 @@
+.movies__container {
+  margin: -16px auto -16px auto;
+  max-width: 980px;
+  width: 980px;
+  background: #ffffff;
+  padding: 50px 40px 0 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.movies {
+  margin-left: -40px;
+}
+/*
+.movies__row {
+  max-width: 920px;
+}*/
