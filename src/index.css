@@ -1,4 +1,11 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('./font/Inter-Medium.ttf') format('truetype');
+}
+
 body {
+  font-family: 'Inter';
+  box-sizing: border-box;
   margin: 0;
   background: #e5e5e5;
 }

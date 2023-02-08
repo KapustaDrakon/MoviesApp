@@ -1,0 +1,76 @@
+@media (max-width: 420px) {
+  .app {
+    padding: 20px 16px 20px 16px;
+    max-width: 388px;
+    width: 388px;
+  }
+}
+
+@media (min-width: 421px) {
+  .app {
+    padding: 50px 40px 40px 40px;
+    max-width: 980px;
+    width: 980px;
+  }
+}
+
+.app {
+  margin: -16px auto -16px auto;
+  min-height: 100vh;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-tabs-nav {
+  margin: auto auto 20px auto !important;
+  width: 120px;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.ant-tabs-tabpane {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app__movie-list-and-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ant-pagination .ant-pagination-item-active {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-pagination .ant-pagination-item-active a {
+  color: #ffffff;
+}
+
+.ant-pagination .ant-pagination-item {
+  min-width: 22px;
+  min-height: 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.ant-pagination .ant-pagination-item a {
+  min-height: 22px;
+  height: 22px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.css-dev-only-do-not-override-1i9hnpv {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+}

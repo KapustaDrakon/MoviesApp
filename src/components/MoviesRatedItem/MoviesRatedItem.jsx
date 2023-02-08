@@ -3,9 +3,9 @@ import { Col, Card, Rate } from 'antd';
 import { format } from 'date-fns';
 
 import { MovieGenre } from '../MovieGenre';
-import './MoviesListItem.css';
+import './MoviesRatedItem.css';
 
-export default class MoviesListItem extends React.Component {
+export default class MoviesRatedItem extends React.Component {
   state = {
     heigth: '',
     rows: 0,
@@ -41,26 +41,17 @@ export default class MoviesListItem extends React.Component {
     }
   }
 
-  textChange(idText, idTitle) {
-    let container;
-    if (document.getElementById(this.props.movie.id + 'container')) {
-      container = document.getElementById(this.props.movie.id + 'container').clientHeight;
+  textChangeRated(idText, idTitle) {
+    let container = document.getElementById(this.props.movie.id + 'container-rated');
+    container = container.clientHeight;
+    let text = document.getElementById(idText);
+    if (text !== null) {
+      text = text.clientHeight;
     }
-
-    let text;
-    if (document.getElementById(idText)) {
-      if (text !== null) {
-        text = document.getElementById(idText).clientHeight;
-      }
+    let title = document.getElementById(idTitle);
+    if (title !== null) {
+      title = title.clientHeight;
     }
-
-    let title;
-    if (document.getElementById(idTitle)) {
-      if (title !== null) {
-        title = document.getElementById(idTitle).clientHeight;
-      }
-    }
-
     const resultHeight = Math.round((container - title) / 22) * 22;
     const resultRows = Math.round((container - title) / 22);
     this.setState({
@@ -70,37 +61,40 @@ export default class MoviesListItem extends React.Component {
   }
 
   componentDidMount() {
-    this.changeColor(this.props.movie.id);
+    this.changeColor(this.props.movie.id + '-rated');
   }
 
   render() {
-    const { movie, onChangeRate } = this.props;
-    /*
-    let text;
-    if (movie.overview.split(' ').length > 20) {
-      text = movie.overview.split(' ', 20).join(' ').trim() + '...';
-    } else text = movie.overview;*/
+    const { movie, onChangeRate, rated } = this.props;
+
+    // let text;
+    // if (movie.overview.split(' ').length > 20) {
+    //   text = movie.overview.split(' ', 20).join(' ').trim() + '...';
+    // } else text = movie.overview;
 
     return (
-      <Col span={12} key={movie.id}>
-        <li className="movie" key={movie.id}>
-          <div className="movie__view">
-            <img className="movie__image" alt="poster" src={this.moviePoster(movie.poster_path)}></img>
-            <Card className="movie__inf">
-              <div className="movie__space">
+      <Col span={12} key={movie.id + '-rated'}>
+        <li className="movie-rated" key={movie.id + '-rated'}>
+          <div className="movie-rated__view">
+            <img className="movie-rated__image" alt="poster" src={this.moviePoster(movie.poster_path)}></img>
+            <Card className="movie-rated__inf">
+              <div className="movie-rated__space">
                 <div className="movie__wrapper">
-                  <div className="movie__inf-container" id={this.props.movie.id + 'container'}>
-                    <div className="movie__inf-title" id={movie.id + 'title'}>
-                      <span className="movie__title">{movie.title}</span>
-                      <span className="movie__date-release">{this.dateRelease(movie.release_date)}</span>
+                  <div className="movie-rated__inf-container" id={movie.id + 'container-rated'}>
+                    <div className="movie-rated__inf-title" id={movie.id + 'title-rated'}>
+                      <span className="movie-rated__title">{movie.title}</span>
+                      <span className="movie-rated__date-release">{this.dateRelease(movie.release_date)}</span>
                       <MovieGenre
                         movie={movie}
-                        textChange={() => this.textChange(this.props.movie.id + 'text', this.props.movie.id + 'title')}
+                        rated={rated}
+                        textChangeRated={() =>
+                          this.textChangeRated(this.props.movie.id + 'text-rated', this.props.movie.id + 'title-rated')
+                        }
                       />
                     </div>
                     <p
-                      className="movie__overview"
-                      id={movie.id + 'text'}
+                      className="movie-rated__overview"
+                      id={movie.id + 'text-rated'}
                       style={{
                         WebkitLineClamp: this.state.rows,
                         height: this.state.heigth,
@@ -110,12 +104,12 @@ export default class MoviesListItem extends React.Component {
                     </p>
                   </div>
                 </div>
-                <span className="movie__rate-container" onClick={() => onChangeRate(movie)}>
+                <span className="movie-rated__rate-container" onClick={() => onChangeRate(movie)}>
                   <Rate count={10} allowHalf style={{ fontSize: 16 }} />
                 </span>
               </div>
             </Card>
-            <span id={movie.id} className="movie__vote-average">
+            <span id={movie.id + '-rated'} className="movie-rated__vote-average">
               {movie.vote_average}
             </span>
           </div>

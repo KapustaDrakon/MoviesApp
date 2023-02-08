@@ -52,7 +52,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^3.0.8",
     "lint-staged": "^13.1.0",
-    "prettier": "^2.8.2"
+    "prettier": "^2.8.2",
+    "react-icons": "^4.7.1"
   },
   "husky": {
     "hooks": {

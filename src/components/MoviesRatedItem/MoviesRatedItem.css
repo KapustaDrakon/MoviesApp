@@ -1,28 +1,28 @@
 @media (max-width: 420px) {
-  .movie {
+  .movie-rated {
     width: 387px;
     height: 245px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
 
-  .movie__image {
+  .movie-rated__image {
     width: 60px;
     height: 91px;
     margin-top: 6px;
     margin-left: 10px;
   }
 
-  .movie__vote-average {
+  .movie-rated__vote-average {
     top: 5px;
     right: 8px;
   }
 
-  .movie__inf {
+  .movie-rated__inf {
     margin: 4px 13px 4px 13px;
   }
 
-  .movie__inf-title {
+  .movie-rated__inf-title {
     min-height: 99px;
     width: 258px;
   }
@@ -38,40 +38,40 @@
     height: 237px !important;
   }
 
-  .movie__rate-container {
+  .movie-rated__rate-container {
     height: 46px;
     display: flex;
     justify-content: flex-end;
   }
 
-  .movie__overview {
+  .movie-rated__overview {
     margin-left: -73px;
   }
 }
 
 @media (min-width: 421px) {
-  .movie {
+  .movie-rated {
     width: 454px;
     height: 281px;
     margin-top: 17px;
     margin-bottom: 17px;
   }
 
-  .movie__image {
+  .movie-rated__image {
     width: 183px;
     height: 281px;
   }
 
-  .movie__vote-average {
+  .movie-rated__vote-average {
     top: 12px;
     right: 9px;
   }
 
-  .movie__inf {
+  .movie-rated__inf {
     margin: 12px 20px 0px 20px;
   }
 
-  .movie__inf-title {
+  .movie-rated__inf-title {
     width: 200px;
   }
 
@@ -86,7 +86,7 @@
     height: 269px !important;
   }
 
-  .movie__rate-container {
+  .movie-rated__rate-container {
     width: 239px;
     height: 46px;
     display: flex;
@@ -95,29 +95,29 @@
   }
 }
 
-.movie {
+.movie-rated {
   list-style: none;
   box-shadow: 1px 1px 10px rgb(182, 182, 182);
 }
 
-.movie__view {
+.movie-rated__view {
   display: flex;
   background: #ffffff;
   position: relative;
   width: inherit;
 }
 
-.movie__space {
+.movie-rated__space {
   width: inherit;
   height: inherit;
 }
 
-.movie__wrapper {
+.movie-rated__wrapper {
   width: inherit;
   height: 210px;
 }
 
-.movie__inf {
+.movie-rated__inf {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -125,11 +125,11 @@
   border: none;
 }
 
-.movie__inf-container {
+.movie-rated__inf-container {
   height: inherit;
 }
 
-.movie__space {
+.movie-rated__space {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -142,19 +142,19 @@
   flex-direction: column;
 }
 
-.movie__title {
+.movie-rated__title {
   font-size: 20px;
   font-weight: 500;
   line-height: 22px;
 }
 
-.movie__date-release {
+.movie-rated__date-release {
   margin-top: 7px;
   font-size: 12px;
   color: #827e7e;
 }
 
-.movie__overview {
+.movie-rated__overview {
   margin-top: 0;
   margin-bottom: 0 !important;
   font-weight: 400;
@@ -167,12 +167,12 @@
   -webkit-box-orient: vertical;
 }
 
-.movie__inf-title {
+.movie-rated__inf-title {
   display: flex;
   flex-direction: column;
 }
 
-.movie__vote-average {
+.movie-rated__vote-average {
   position: absolute;
   display: flex;
   align-items: center;

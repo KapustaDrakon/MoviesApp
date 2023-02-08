@@ -1,25 +1,26 @@
 @media (max-width: 420px) {
-  .movies__container {
+  .movies-rated__container {
     max-width: 420px;
     width: 388px;
   }
 }
 
 @media (min-width: 421px) {
-  .movies__container {
+  .movies-rated__container {
     max-width: 980px;
-    width: auto;
+    width: 980px;
   }
 }
 
-.movies__container {
+.movies-rated__container {
   margin: auto;
+  margin-top: 42px;
   background: #ffffff;
   display: flex;
   flex-direction: column;
 }
 
-.movies {
+.movies-rated {
   margin-left: -40px;
 }
 

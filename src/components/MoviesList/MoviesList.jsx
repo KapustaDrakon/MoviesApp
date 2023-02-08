@@ -1,33 +1,20 @@
 import React from 'react';
-import { Row, Alert } from 'antd';
+import { Row } from 'antd';
 
 import { MoviesListItem } from '../MoviesListItem';
-import { Spinner } from '../Spinner';
-import { ErrorMessage } from '../ErrorMessage';
 
 import './MoviesList.css';
 
-export default class ItemList extends React.Component {
+export default class MoviesList extends React.Component {
   render() {
-    const { movies, spin, error, network } = this.props;
+    const { movies, onChangeRate } = this.props;
 
     return (
       <div className="movies__container">
-        <Spinner spin={spin} />
-        <ErrorMessage error={error} />
-        {network ? (
-          <Alert
-            type="error"
-            className="network"
-            message="Ошибка сети!"
-            description="Проверьте подключение к интернету."
-            closable
-          />
-        ) : null}
         <ul className="movies">
           <Row className="movies__row">
             {movies.map((movie) => {
-              return <MoviesListItem movie={movie} key={movie.id} />;
+              return <MoviesListItem movie={movie} key={movie.id} onChangeRate={onChangeRate} />;
             })}
           </Row>
         </ul>
