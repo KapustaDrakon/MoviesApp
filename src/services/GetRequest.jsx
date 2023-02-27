@@ -26,4 +26,10 @@ export default class GetRequest extends React.Component {
     const res = await this.getResourseFetch(`/movie/${id}${this._apiKey}`);
     return res.genres;
   }
+
+  async newGeustSession() {
+    const res = await this.getResourseFetch(`/authentication/guest_session/new${this._apiKey}`);
+    console.log(res.guest_session_id);
+    return res.guest_session_id;
+  }
 }

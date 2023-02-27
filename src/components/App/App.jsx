@@ -87,6 +87,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.searchMovies();
+    this.getRequest.newGeustSession();
   }
 
   onError() {

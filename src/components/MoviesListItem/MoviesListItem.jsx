@@ -14,13 +14,13 @@ export default class MoviesListItem extends React.Component {
   changeColor(id) {
     const movieVoteColor = document.getElementById(id);
     if (movieVoteColor.textContent >= 7) {
-      movieVoteColor.style.border = '2px solid #00e900';
-    } else if (movieVoteColor.textContent <= 4.9 && movieVoteColor.textContent != 0) {
-      movieVoteColor.style.border = '2px solid #e90000';
-    } else if (movieVoteColor.textContent == 0) {
-      movieVoteColor.style.border = '2px solid #bbbaba';
+      movieVoteColor.style.border = '2px solid #66E900';
+    } else if (movieVoteColor.textContent < 7 && movieVoteColor.textContent >= 5) {
+      movieVoteColor.style.border = '2px solid #E9D100';
+    } else if (movieVoteColor.textContent < 5 && movieVoteColor.textContent >= 3) {
+      movieVoteColor.style.border = '2px solid #E97E00';
     } else {
-      movieVoteColor.style.border = '2px solid #e9d100';
+      movieVoteColor.style.border = '2px solid #E90000';
     }
   }
 
