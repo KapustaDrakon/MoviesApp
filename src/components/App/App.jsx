@@ -33,7 +33,7 @@ class App extends React.Component {
   };
 
   onChangeRate = (event, movieRated) => {
-    console.log(event, movieRated.id, localStorage.getItem('guest_session_id'));
+    //console.log(event, movieRated.id, localStorage.getItem('guest_session_id'));
     (async () => {
       await this.getRequest.rateMoviePost(movieRated.id, localStorage.getItem('guest_session_id'), event);
       await this.showRatedMovies();
@@ -67,11 +67,11 @@ class App extends React.Component {
     this.setState({
       movies: [],
       spin: true,
-      //searchValue: searchValue,
+      searchValue: searchValue,
       error: false,
     });
     const results = await this.getRequest.searchMoviesFetch(searchValue, page);
-    console.log(searchValue);
+    //console.log(searchValue);
     if (results.results.length === 0 && searchValue !== '') {
       return this.onError();
     } else {
@@ -102,7 +102,7 @@ class App extends React.Component {
         localStorage.setItem('guest_session_id', id);
       }
       await this.showRatedMovies();
-      console.log(localStorage.getItem('guest_session_id'), '- localStorage');
+      //console.log(localStorage.getItem('guest_session_id'), '- localStorage');
     })();
   }
 
@@ -128,7 +128,7 @@ class App extends React.Component {
   render() {
     const { movies, spin, error, network, moviesRated, rated, genres } = this.state;
 
-    console.log(moviesRated);
+    //console.log(moviesRated);
     return (
       <div className="app">
         <GetRequestProvider value={genres}>
@@ -166,7 +166,7 @@ class App extends React.Component {
                 <Spinner spin={spin} />
               )}
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Rated" key="rated" /*onChange={() => console.log('show')}*/>
+            <Tabs.TabPane tab="Rated" key="rated">
               <Network onNetworkState={this.onNetworkState} />
               <ErrorMessage error={error} />
               {network ? (

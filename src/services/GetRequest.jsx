@@ -29,7 +29,7 @@ export default class GetRequest extends React.Component {
     if (!res.ok) {
       throw new Error();
     }
-    return await res.json();
+    return;
   }
 
   async searchMoviesFetch(value, page) {
@@ -42,7 +42,6 @@ export default class GetRequest extends React.Component {
     };
   }
 
-  //https://api.themoviedb.org/3/movie/id?api_key=6157d69c47f109097f7a9012be7c457f
   async movieGenreFetch(id) {
     const res = await this.getResourseFetch(`/movie/${id}${this._apiKey}`);
     return res.genres;
