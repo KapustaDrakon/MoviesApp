@@ -8,6 +8,7 @@ import { SearchInput } from '../SearchInput';
 import { ErrorMessage } from '../ErrorMessage';
 import { Spinner } from '../Spinner';
 import GetRequest from '../../services/GetRequest';
+import { GetRequestProvider } from '../ContextService';
 
 import './App.css';
 
@@ -17,39 +18,38 @@ class App extends React.Component {
   state = {
     movies: [],
     moviesRated: [],
+    genres: [],
     seachValue: '',
     page: 1,
     total_pages: 1,
     total_results: 0,
+    page_rated: 1,
+    total_pages_rated: 1,
+    total_results_rated: 0,
     rated: false,
     spin: false,
     error: false,
     network: false,
   };
 
-  onChangeRate = (movieRated) => {
-    const idx = movieRated.id;
-    let check = false;
-    this.setState(({ moviesRated }) => {
-      if (moviesRated.length === 0) {
-        return {
-          moviesRated: [movieRated, ...moviesRated],
-        };
-      }
-      moviesRated.map((movie) => {
-        if (movie.id === idx) {
-          return (check = true);
-        }
-      });
-
-      if (!check) {
-        return {
-          moviesRated: [movieRated, ...moviesRated],
-        };
-      }
-      check = false;
-    });
+  onChangeRate = (event, movieRated) => {
+    console.log(event, movieRated.id, localStorage.getItem('guest_session_id'));
+    (async () => {
+      await this.getRequest.rateMoviePost(movieRated.id, localStorage.getItem('guest_session_id'), event);
+      await this.showRatedMovies();
+    })();
   };
+
+  async showRatedMovies(page_rated = 1) {
+    const guest_id = localStorage.getItem('guest_session_id');
+    const results = await this.getRequest.getRatedMovies(guest_id, page_rated);
+    return this.setState({
+      moviesRated: results.results,
+      total_pages_rated: results.total_pages_rated,
+      total_results_rated: results.total_results_rated,
+      page_rated: results.page_rated,
+    });
+  }
 
   searchMovies = (searchValue, page = 1) => {
     if (searchValue === '') {
@@ -67,11 +67,12 @@ class App extends React.Component {
     this.setState({
       movies: [],
       spin: true,
-      searchValue: searchValue,
+      //searchValue: searchValue,
       error: false,
     });
     const results = await this.getRequest.searchMoviesFetch(searchValue, page);
-    if (results.results.length === 0) {
+    console.log(searchValue);
+    if (results.results.length === 0 && searchValue !== '') {
       return this.onError();
     } else {
       return this.setState({
@@ -85,9 +86,24 @@ class App extends React.Component {
     }
   }
 
+  async getAllGenres() {
+    const genres = await this.getRequest.movieAllGenresFetch();
+    this.setState({
+      genres: genres,
+    });
+  }
+
   componentDidMount() {
     this.searchMovies();
-    this.getRequest.newGeustSession();
+    this.getAllGenres();
+    (async () => {
+      if (!localStorage.getItem('guest_session_id')) {
+        const id = await this.getRequest.newGeustSession();
+        localStorage.setItem('guest_session_id', id);
+      }
+      await this.showRatedMovies();
+      console.log(localStorage.getItem('guest_session_id'), '- localStorage');
+    })();
   }
 
   onError() {
@@ -110,48 +126,80 @@ class App extends React.Component {
   };
 
   render() {
-    const { movies, spin, error, network, moviesRated, rated } = this.state;
+    const { movies, spin, error, network, moviesRated, rated, genres } = this.state;
 
+    console.log(moviesRated);
     return (
       <div className="app">
-        <Tabs onChange={this.onRated}>
-          <Tabs.TabPane tab="Search" key="search">
-            <SearchInput searchMovies={this.searchMovies} />
-            <Network onNetworkState={this.onNetworkState} />
-            <ErrorMessage error={error} />
-            {network ? (
-              <Alert
-                type="error"
-                className="network"
-                message="Ошибка сети!"
-                description="Проверьте подключение к интернету."
-                closable
-              />
-            ) : null}
-            {movies.length !== 0 ? (
-              <div className="app__movie-list-and-pagination">
-                <MoviesList movies={movies} onChangeRate={this.onChangeRate} />
-                <Pagination
-                  current={this.state.page}
-                  total={this.state.total_results}
-                  showSizeChanger={false}
-                  pageSize={20}
-                  onChange={(page) => {
-                    this.setState({
-                      page: page,
-                    });
-                    this.searchMovies(this.state.searchValue, page);
-                  }}
+        <GetRequestProvider value={genres}>
+          <Tabs onTabClick={() => this.showRatedMovies()}>
+            <Tabs.TabPane tab="Search" key="search">
+              <SearchInput searchMovies={this.searchMovies} />
+              <Network onNetworkState={this.onNetworkState} />
+              <ErrorMessage error={error} />
+              {network ? (
+                <Alert
+                  type="error"
+                  className="network"
+                  message="Ошибка сети!"
+                  description="Проверьте подключение к интернету."
+                  closable
                 />
-              </div>
-            ) : (
-              <Spinner spin={spin} />
-            )}
-          </Tabs.TabPane>
-          <Tabs.TabPane tab="Rated" key="rated">
-            <MoviesRated moviesRated={moviesRated} onChangeRate={this.onChangeRate} rated={rated} />
-          </Tabs.TabPane>
-        </Tabs>
+              ) : null}
+              {movies.length !== 0 ? (
+                <div className="app__movie-list-and-pagination">
+                  <MoviesList movies={movies} onChangeRate={this.onChangeRate} />
+                  <Pagination
+                    current={this.state.page}
+                    total={this.state.total_results}
+                    showSizeChanger={false}
+                    pageSize={20}
+                    onChange={(page) => {
+                      this.setState({
+                        page: page,
+                      });
+                      this.searchMovies(this.state.searchValue, page);
+                    }}
+                  />
+                </div>
+              ) : (
+                <Spinner spin={spin} />
+              )}
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Rated" key="rated" /*onChange={() => console.log('show')}*/>
+              <Network onNetworkState={this.onNetworkState} />
+              <ErrorMessage error={error} />
+              {network ? (
+                <Alert
+                  type="error"
+                  className="network"
+                  message="Ошибка сети!"
+                  description="Проверьте подключение к интернету."
+                  closable
+                />
+              ) : null}
+              {moviesRated.length !== 0 ? (
+                <div className="app__movie-list-and-pagination">
+                  <MoviesRated moviesRated={moviesRated} onChangeRate={this.onChangeRate} rated={rated} />
+                  <Pagination
+                    current={this.state.page_rated}
+                    total={this.state.total_results_rated}
+                    showSizeChanger={false}
+                    pageSize={20}
+                    onChange={(page_rated) => {
+                      this.setState({
+                        page_rated: page_rated,
+                      });
+                      this.showRatedMovies(page_rated);
+                    }}
+                  />
+                </div>
+              ) : (
+                <Spinner spin={spin} />
+              )}
+            </Tabs.TabPane>
+          </Tabs>
+        </GetRequestProvider>
       </div>
     );
   }

@@ -4,11 +4,14 @@ import { format } from 'date-fns';
 
 import { MovieGenre } from '../MovieGenre';
 import './MoviesListItem.css';
+import { GetRequestConsumer } from '../ContextService';
 
 export default class MoviesListItem extends React.Component {
   state = {
     heigth: '',
     rows: 0,
+    spin: false,
+    poster: '',
   };
 
   changeColor(id) {
@@ -81,6 +84,11 @@ export default class MoviesListItem extends React.Component {
       text = movie.overview.split(' ', 20).join(' ').trim() + '...';
     } else text = movie.overview;*/
 
+    let vote = String(movie.vote_average);
+    if (vote.split('').length > 4) {
+      vote = Number(vote).toFixed(2);
+    }
+
     return (
       <Col span={12} key={movie.id}>
         <li className="movie" key={movie.id}>
@@ -93,10 +101,19 @@ export default class MoviesListItem extends React.Component {
                     <div className="movie__inf-title" id={movie.id + 'title'}>
                       <span className="movie__title">{movie.title}</span>
                       <span className="movie__date-release">{this.dateRelease(movie.release_date)}</span>
-                      <MovieGenre
-                        movie={movie}
-                        textChange={() => this.textChange(this.props.movie.id + 'text', this.props.movie.id + 'title')}
-                      />
+                      <GetRequestConsumer>
+                        {(genres) => {
+                          return (
+                            <MovieGenre
+                              movie={movie}
+                              genres={genres}
+                              textChange={() =>
+                                this.textChange(this.props.movie.id + 'text', this.props.movie.id + 'title')
+                              }
+                            />
+                          );
+                        }}
+                      </GetRequestConsumer>
                     </div>
                     <p
                       className="movie__overview"
@@ -110,13 +127,13 @@ export default class MoviesListItem extends React.Component {
                     </p>
                   </div>
                 </div>
-                <span className="movie__rate-container" onClick={() => onChangeRate(movie)}>
-                  <Rate count={10} allowHalf style={{ fontSize: 16 }} />
+                <span className="movie__rate-container" /*onClick={() => onChangeRate(movie)}*/>
+                  <Rate count={10} allowHalf style={{ fontSize: 16 }} onChange={(e) => onChangeRate(e, movie)} />
                 </span>
               </div>
             </Card>
             <span id={movie.id} className="movie__vote-average">
-              {movie.vote_average}
+              {vote}
             </span>
           </div>
         </li>

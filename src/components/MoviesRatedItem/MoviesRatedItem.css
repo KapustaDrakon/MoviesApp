@@ -161,6 +161,9 @@
   font-size: 12px;
   line-height: 22px;
 
+  height: auto;
+  -webkit-line-clamp: auto;
+
   overflow: hidden;
   text-overflow: clip;
   display: -webkit-box;
