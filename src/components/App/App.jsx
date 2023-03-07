@@ -26,7 +26,6 @@ class App extends React.Component {
     page_rated: 1,
     total_pages_rated: 1,
     total_results_rated: 0,
-    rated: false,
     spin: false,
     error: false,
     network: false,
@@ -113,12 +112,6 @@ class App extends React.Component {
     });
   }
 
-  onRated = () => {
-    this.setState((prevState) => ({
-      rated: !prevState.rated,
-    }));
-  };
-
   onNetworkState = () => {
     this.setState((prevState) => ({
       network: !prevState.network,
@@ -126,7 +119,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { movies, spin, error, network, moviesRated, rated, genres } = this.state;
+    const { movies, spin, error, network, moviesRated, genres } = this.state;
 
     //console.log(moviesRated);
     return (
@@ -180,7 +173,7 @@ class App extends React.Component {
               ) : null}
               {moviesRated.length !== 0 ? (
                 <div className="app__movie-list-and-pagination">
-                  <MoviesRated moviesRated={moviesRated} onChangeRate={this.onChangeRate} rated={rated} />
+                  <MoviesRated moviesRated={moviesRated} onChangeRate={this.onChangeRate} />
                   <Pagination
                     current={this.state.page_rated}
                     total={this.state.total_results_rated}

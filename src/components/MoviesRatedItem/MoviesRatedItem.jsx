@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Col, Card, Rate } from 'antd';
 import { format } from 'date-fns';
 
-//import { MovieGenre } from '../MovieGenre';
 import { GetRequestConsumer } from '../ContextService';
 import './MoviesRatedItem.css';
 import { MovieGenre } from '../MovieGenre';
@@ -74,7 +74,7 @@ export default class MoviesRatedItem extends React.Component {
   }
 
   render() {
-    const { movie, onChangeRate /*, rated*/ } = this.props;
+    const { movie, onChangeRate } = this.props;
 
     // let text;
     // if (movie.overview.split(' ').length > 20) {
@@ -153,3 +153,13 @@ export default class MoviesRatedItem extends React.Component {
     );
   }
 }
+
+MoviesRatedItem.defaultProps = {
+  movie: {},
+  onChangeRate: () => {},
+};
+
+MoviesRatedItem.propTypes = {
+  movie: PropTypes.object,
+  onChangeRate: PropTypes.func,
+};

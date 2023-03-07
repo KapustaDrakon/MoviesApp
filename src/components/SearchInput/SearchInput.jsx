@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import GetRequest from '../../services/GetRequest';
 
@@ -47,3 +48,11 @@ export default class SearchInput extends React.Component {
     );
   }
 }
+
+SearchInput.defaultProps = {
+  searchMovies: () => {},
+};
+
+SearchInput.propTypes = {
+  searchMovies: PropTypes.func,
+};

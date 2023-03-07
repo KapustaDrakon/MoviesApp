@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row } from 'antd';
 
 import { MoviesListItem } from '../MoviesListItem';
@@ -22,3 +23,13 @@ export default class MoviesList extends React.Component {
     );
   }
 }
+
+MoviesList.defaultProps = {
+  movies: [],
+  onChangeRate: () => {},
+};
+
+MoviesList.propsTypes = {
+  movies: PropTypes.array,
+  onChangeRate: PropTypes.func,
+};

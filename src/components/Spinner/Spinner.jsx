@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Spin } from 'antd';
 
 import './Spinner.css';
@@ -11,3 +12,11 @@ export default class Spinner extends React.Component {
     }
   }
 }
+
+Spinner.defaultProps = {
+  spin: false,
+};
+
+Spinner.propTypes = {
+  spin: PropTypes.bool,
+};

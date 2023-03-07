@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Alert } from 'antd';
 
 import './ErrorMessage.css';
@@ -11,3 +12,11 @@ export default class ErrorMessage extends React.Component {
     }
   }
 }
+
+ErrorMessage.defaultProps = {
+  error: false,
+};
+
+ErrorMessage.propTypes = {
+  error: PropTypes.bool,
+};

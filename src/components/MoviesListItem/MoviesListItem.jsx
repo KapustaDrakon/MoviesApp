@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Col, Card, Rate } from 'antd';
 import { format } from 'date-fns';
 
@@ -10,8 +11,6 @@ export default class MoviesListItem extends React.Component {
   state = {
     heigth: '',
     rows: 0,
-    spin: false,
-    poster: '',
   };
 
   changeColor(id) {
@@ -127,7 +126,7 @@ export default class MoviesListItem extends React.Component {
                     </p>
                   </div>
                 </div>
-                <span className="movie__rate-container" /*onClick={() => onChangeRate(movie)}*/>
+                <span className="movie__rate-container">
                   <Rate count={10} allowHalf style={{ fontSize: 16 }} onChange={(e) => onChangeRate(e, movie)} />
                 </span>
               </div>
@@ -141,3 +140,13 @@ export default class MoviesListItem extends React.Component {
     );
   }
 }
+
+MoviesListItem.defaultProps = {
+  movies: [],
+  onChangeRate: () => {},
+};
+
+MoviesListItem.propsTypes = {
+  movies: PropTypes.array,
+  onChangeRate: PropTypes.func,
+};
