@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 
 import { MovieGenre } from '../MovieGenre';
 import './MoviesListItem.css';
-import { GetRequestConsumer } from '../ContextService';
+import { GetRequestConsumer } from '../../context/ContextService';
 
 export default class MoviesListItem extends React.Component {
   state = {
@@ -92,7 +92,11 @@ export default class MoviesListItem extends React.Component {
       <Col span={12} key={movie.id}>
         <li className="movie" key={movie.id}>
           <div className="movie__view">
-            <img className="movie__image" alt="poster" src={this.moviePoster(movie.poster_path)}></img>
+            <img
+              className="movie__image"
+              alt={`poster: ${movie.title}`}
+              src={this.moviePoster(movie.poster_path)}
+            ></img>
             <Card className="movie__inf">
               <div className="movie__space">
                 <div className="movie__wrapper">

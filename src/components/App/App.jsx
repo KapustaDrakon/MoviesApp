@@ -8,7 +8,7 @@ import { SearchInput } from '../SearchInput';
 import { ErrorMessage } from '../ErrorMessage';
 import { Spinner } from '../Spinner';
 import GetRequest from '../../services/GetRequest';
-import { GetRequestProvider } from '../ContextService';
+import { GetRequestProvider } from '../../context/ContextService';
 
 import './App.css';
 

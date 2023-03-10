@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Col, Card, Rate } from 'antd';
 import { format } from 'date-fns';
 
-import { GetRequestConsumer } from '../ContextService';
+import { GetRequestConsumer } from '../../context/ContextService';
 import './MoviesRatedItem.css';
 import { MovieGenre } from '../MovieGenre';
 
@@ -90,7 +90,11 @@ export default class MoviesRatedItem extends React.Component {
       <Col span={12} key={movie.id + '-rated'}>
         <li className="movie-rated" key={movie.id + '-rated'}>
           <div className="movie-rated__view">
-            <img className="movie-rated__image" alt="poster" src={this.moviePoster(movie.poster_path)}></img>
+            <img
+              className="movie-rated__image"
+              alt={`poster: ${movie.title}`}
+              src={this.moviePoster(movie.poster_path)}
+            ></img>
             <Card className="movie-rated__inf">
               <div className="movie-rated__space">
                 <div className="movie__wrapper">

@@ -11,7 +11,7 @@ export default class MoviesList extends React.Component {
     const { movies, onChangeRate } = this.props;
 
     return (
-      <div className="movies__container">
+      <section className="movies__container">
         <ul className="movies">
           <Row className="movies__row">
             {movies.map((movie) => {
@@ -19,7 +19,7 @@ export default class MoviesList extends React.Component {
             })}
           </Row>
         </ul>
-      </div>
+      </section>
     );
   }
 }
